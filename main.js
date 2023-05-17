@@ -35,12 +35,17 @@ function updateCoffees(e) {
     });
     tbody.innerHTML = renderCoffees(filteredCoffees);
 }
-function createCoffee(roastType, roastName2) {
+function createCoffee() {
+    let nameValue = roastName2.value;
+    let typeValue = roastType.value;
+    let newCoffeeArr = []
+
     let newCoffee = {
-        name: roastName2,
-        roast: roastType
+        name: nameValue,
+        roast: typeValue
     }
-    console.log(newCoffee);
+
+    coffees.push(newCoffee);
 }
 
 
@@ -74,4 +79,9 @@ tbody.innerHTML = renderCoffees(coffees);
 
 submitButton.addEventListener('click', updateCoffees);
 submitButton2.addEventListener('click', createCoffee);
-// roastSelection.addEventListener(onselect(), updateCoffees)
+submitButton2.addEventListener('click', updateCoffees);
+
+roastSelection.addEventListener(`change`, updateCoffees)
+    // .addEventListener(`mouseenter`, updateCoffees)
+
+
