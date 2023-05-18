@@ -11,10 +11,9 @@ function renderCoffee(coffee) {
 }
 
 function renderCoffees(coffees) {
-    let coffeesRev = coffees.reverse()
     var html = '';
-    for(var i = coffees.length - 1; i >= 0; i--) {
-        html += renderCoffee(coffeesRev[i]);
+    for(var i = 0; i < coffees.length; i++) {
+        html += renderCoffee(coffees[i]);
     }
     return html;
 }
@@ -39,14 +38,16 @@ function updateCoffees(e) {
 }
 
 function createCoffee() {
+    let idValue = coffees.length + 1
     let nameValue = roastName2.value;
     let typeValue = roastType.value;
     nameValue = createCoffeeNames(nameValue)
     let newCoffee = {
+        id: idValue,
         name: nameValue,
         roast: typeValue
     }
-
+    console.log(newCoffee)
     coffees.push(newCoffee);
 }
 
