@@ -23,6 +23,12 @@ function updateCoffees(e) {
     var selectedRoast = roastSelection.value;
     var inputName = roastName.value.toLowerCase()
     var filteredCoffees = [];
+    filteredCoffees = filterCoffees(selectedRoast, inputName)
+    tbody.innerHTML = renderCoffees(filteredCoffees);
+}
+
+function filterCoffees(selectedRoast, inputName) {
+    var filteredCoffees = [];
     coffees.forEach(function(coffee) {
         if (selectedRoast === 'all') {
             if (coffee.name.toLowerCase().includes(inputName)  || '' === inputName){
@@ -34,7 +40,7 @@ function updateCoffees(e) {
             }
         }
     });
-    tbody.innerHTML = renderCoffees(filteredCoffees);
+    return filteredCoffees;
 }
 
 function createCoffee() {
