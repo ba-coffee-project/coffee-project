@@ -21,25 +21,26 @@ function renderCoffees(coffees) {
 function updateCoffees(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
     var selectedRoast = roastSelection.value;
-    var inputName = roastName.value
+    var inputName = roastName.value.toLowerCase()
     var filteredCoffees = [];
     coffees.forEach(function(coffee) {
         if (selectedRoast === 'all') {
-            filteredCoffees.push(coffee);
+            if (coffee.name.toLowerCase().includes(inputName)  || '' === inputName){
+                filteredCoffees.push(coffee);
+            }
         } else if (coffee.roast === selectedRoast) {
-            filteredCoffees.push(coffee);
-        }
-        if (coffee.name === inputName){
-            filteredCoffees.push(coffee);
+            if (coffee.name.toLowerCase().includes(inputName)  || '' === inputName){
+                filteredCoffees.push(coffee);
+            }
         }
     });
     tbody.innerHTML = renderCoffees(filteredCoffees);
 }
+
 function createCoffee() {
     let nameValue = roastName2.value;
     let typeValue = roastType.value;
-    let newCoffeeArr = []
-
+    nameValue = createCoffeeNames(nameValue)
     let newCoffee = {
         name: nameValue,
         roast: typeValue
@@ -48,6 +49,14 @@ function createCoffee() {
     coffees.push(newCoffee);
 }
 
+function createCoffeeNames(str) {
+    const arr = str.split(" ");
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    }
+    const str2 = arr.join(" ");
+    return str2;
+}
 
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
 var coffees = [
@@ -80,8 +89,5 @@ tbody.innerHTML = renderCoffees(coffees);
 submitButton.addEventListener('click', updateCoffees);
 submitButton2.addEventListener('click', createCoffee);
 submitButton2.addEventListener('click', updateCoffees);
-
 roastSelection.addEventListener(`change`, updateCoffees)
 roastName.addEventListener(`input`, updateCoffees)
-
-
