@@ -82,6 +82,6 @@ submitButton2.addEventListener('click', createCoffee);
 submitButton2.addEventListener('click', updateCoffees);
 
 roastSelection.addEventListener(`change`, updateCoffees)
-    // .addEventListener(`mouseenter`, updateCoffees)
+roastName.addEventListener(`input`, updateCoffees)
 
 
