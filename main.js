@@ -1,6 +1,6 @@
 "use strict"
 
-function renderCoffee(coffee) {
+function renderCoffee(coffee) {         //refactored to use divs instead of tables
     var html = '<div class="coffee col-6 my-3">';
     html += '<div class="d-none">' + coffee.id + '</div>';
     html += '<h2 class="float-start mx-2 h3">' + coffee.name + '</h2>';
@@ -12,7 +12,7 @@ function renderCoffee(coffee) {
 
 function renderCoffees(coffees) {
     var html = '';
-    for(var i = 0; i < coffees.length; i++) {
+    for(var i = 0; i < coffees.length; i++) {       //refactored to begin at the start of the coffees array
         html += renderCoffee(coffees[i]);
     }
     return html;
@@ -22,12 +22,10 @@ function updateCoffees(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
     var selectedRoast = roastSelection.value;
     var inputName = roastName.value.toLowerCase()
-    var filteredCoffees = [];
-    filteredCoffees = filterCoffees(selectedRoast, inputName)
-    tbody.innerHTML = renderCoffees(filteredCoffees);
+    tbody.innerHTML = renderCoffees(filterCoffees(selectedRoast, inputName));
 }
 
-function filterCoffees(selectedRoast, inputName) {
+function filterCoffees(selectedRoast, inputName) { // refactored to allow more refined search
     var filteredCoffees = [];
     coffees.forEach(function(coffee) {
         if (selectedRoast === 'all') {
@@ -43,7 +41,7 @@ function filterCoffees(selectedRoast, inputName) {
     return filteredCoffees;
 }
 
-function createCoffee() {
+function createCoffee() {          //creates object from user input
     let idValue = coffees.length + 1
     let nameValue = roastName2.value;
     let typeValue = roastType.value;
@@ -53,11 +51,10 @@ function createCoffee() {
         name: nameValue,
         roast: typeValue
     }
-    console.log(newCoffee)
     coffees.push(newCoffee);
 }
 
-function createCoffeeNames(str) {
+function createCoffeeNames(str) {       //checks and corrects format of manually entered coffees
     const arr = str.split(" ");
     for (var i = 0; i < arr.length; i++) {
         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
@@ -84,6 +81,7 @@ var coffees = [
     {id: 14, name: 'French', roast: 'dark'},
 ];
 
+//selector list
 var tbody = document.querySelector('#coffees');
 var submitButton = document.querySelector('#submit');
 var submitButton2 = document.querySelector('#submit2');
@@ -94,6 +92,7 @@ var roastName2 = document.querySelector('#input2');
 
 tbody.innerHTML = renderCoffees(coffees);
 
+//event list
 submitButton.addEventListener('click', updateCoffees);
 submitButton2.addEventListener('click', createCoffee);
 submitButton2.addEventListener('click', updateCoffees);
