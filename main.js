@@ -1,3 +1,4 @@
+(function(){
 "use strict"
 
 function renderCoffee(coffee) {         //refactored to use divs instead of tables
@@ -97,3 +98,5 @@ submitButton2.addEventListener('click', createCoffee);
 submitButton2.addEventListener('click', updateCoffees);
 roastSelection.addEventListener(`change`, updateCoffees)
 roastName.addEventListener(`input`, updateCoffees);
+
+})();
