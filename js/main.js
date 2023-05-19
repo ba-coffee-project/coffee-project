@@ -2,7 +2,7 @@
 "use strict"
 
 function renderCoffee(coffee) {         //refactored to use divs instead of tables
-    var html = '<div class="coffee col-6 my-3">';
+    let html = '<div class="coffee col-6 my-3">';
     html += '<div class="d-none">' + coffee.id + '</div>';
     html += '<h2 class="float-start mx-2 h3">' + coffee.name + '</h2>';
     html += '<p class="my-2 text-muted">' + coffee.roast + '</p>';
@@ -12,8 +12,8 @@ function renderCoffee(coffee) {         //refactored to use divs instead of tabl
 }
 
 function renderCoffees(coffees) {
-    var html = '';
-    for(var i = 0; i < coffees.length; i++) {       //refactored to begin at the start of the coffees array
+    let html = '';
+    for(let i = 0; i < coffees.length; i++) {       //refactored to begin at the start of the coffees array
         html += renderCoffee(coffees[i]);
     }
     return html;
@@ -21,8 +21,9 @@ function renderCoffees(coffees) {
 
 function updateCoffees(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
-    var selectedRoast = searchSelection.value;
+    let selectedRoast = searchSelection.value;
     let filteredCoffees =[];
+
     for (let i = 0; i < coffees.length; i++) {
         if (selectedRoast === 'all') {
             filteredCoffees = filterCoffees(coffees[i], filteredCoffees);
@@ -34,7 +35,7 @@ function updateCoffees(e) {
 }
 
 function filterCoffees(filter, bucket) { // refactored to allow more refined search\
-    var inputName = searchName.value.toLowerCase();
+    let inputName = searchName.value.toLowerCase();
     if (filter.name.toLowerCase().includes(inputName) || '' === inputName) {
         bucket.push(filter);
     }
@@ -58,15 +59,14 @@ function createCoffee() {          //creates object from user input
 
 function createCoffeeNames(str) {       //checks and corrects format of manually entered coffees
     const arr = str.split(" ");
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
     }
-    const str2 = arr.join(" ");
-    return str2;
+    return arr.join(" ");
 }
 
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
-var coffees = [
+let coffees = [
     {id: 1, name: 'Light City', roast: 'light'},
     {id: 2, name: 'Half City', roast: 'light'},
     {id: 3, name: 'Cinnamon', roast: 'light'},
@@ -84,13 +84,13 @@ var coffees = [
 ];
 
 //selector list
-var tbody = document.querySelector('#coffees');
-var submitSearch = document.querySelector('#submitSearch');
-var submitEnter = document.querySelector('#submitEnter');
-var searchSelection = document.querySelector('#roast-selection');
-var searchName = document.querySelector('#input');
-var enterType = document.querySelector('#roast-type');
-var enterName = document.querySelector('#enterName');
+let tbody = document.querySelector('#coffees');
+let submitSearch = document.querySelector('#submitSearch');
+let submitEnter = document.querySelector('#submitEnter');
+let searchSelection = document.querySelector('#roast-selection');
+let searchName = document.querySelector('#input');
+let enterType = document.querySelector('#roast-type');
+let enterName = document.querySelector('#enterName');
 
 tbody.innerHTML = renderCoffees(coffees);
 
