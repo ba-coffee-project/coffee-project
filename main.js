@@ -11,7 +11,6 @@ function renderCoffee(coffee) {         //refactored to use divs instead of tabl
 }
 
 function renderCoffees(coffees) {
-    // console.log(coffees)
     var html = '';
     for(var i = 0; i < coffees.length; i++) {       //refactored to begin at the start of the coffees array
         html += renderCoffee(coffees[i]);
