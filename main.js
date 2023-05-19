@@ -11,6 +11,7 @@ function renderCoffee(coffee) {         //refactored to use divs instead of tabl
 }
 
 function renderCoffees(coffees) {
+    // console.log(coffees)
     var html = '';
     for(var i = 0; i < coffees.length; i++) {       //refactored to begin at the start of the coffees array
         html += renderCoffee(coffees[i]);
@@ -21,24 +22,23 @@ function renderCoffees(coffees) {
 function updateCoffees(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
     var selectedRoast = roastSelection.value;
-    var inputName = roastName.value.toLowerCase()
-    tbody.innerHTML = renderCoffees(filterCoffees(selectedRoast, inputName));
+    let filteredCoffees =[];
+    for (let i = 0; i < coffees.length; i++) {
+        if (selectedRoast === 'all') {
+            filteredCoffees = filterCoffees(coffees[i], filteredCoffees);
+        } else if (coffees[i].roast === selectedRoast) {
+            filteredCoffees = filterCoffees(coffees[i], filteredCoffees);
+        }
+    }
+    tbody.innerHTML = renderCoffees(filteredCoffees);
 }
 
-function filterCoffees(selectedRoast, inputName) { // refactored to allow more refined search
-    var filteredCoffees = [];
-    coffees.forEach(function(coffee) {
-        if (selectedRoast === 'all') {
-            if (coffee.name.toLowerCase().includes(inputName)  || '' === inputName){
-                filteredCoffees.push(coffee);
-            }
-        } else if (coffee.roast === selectedRoast) {
-            if (coffee.name.toLowerCase().includes(inputName)  || '' === inputName){
-                filteredCoffees.push(coffee);
-            }
-        }
-    });
-    return filteredCoffees;
+function filterCoffees(filter, bucket) { // refactored to allow more refined search\
+    var inputName = roastName.value.toLowerCase();
+    if (filter.name.toLowerCase().includes(inputName) || '' === inputName) {
+        bucket.push(filter);
+    }
+    return bucket;
 }
 
 function createCoffee() {          //creates object from user input
@@ -97,4 +97,4 @@ submitButton.addEventListener('click', updateCoffees);
 submitButton2.addEventListener('click', createCoffee);
 submitButton2.addEventListener('click', updateCoffees);
 roastSelection.addEventListener(`change`, updateCoffees)
-roastName.addEventListener(`input`, updateCoffees)
+roastName.addEventListener(`input`, updateCoffees);
