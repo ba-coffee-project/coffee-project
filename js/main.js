@@ -21,7 +21,7 @@ function renderCoffees(coffees) {
 
 function updateCoffees(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
-    var selectedRoast = roastSelection.value;
+    var selectedRoast = searchSelection.value;
     let filteredCoffees =[];
     for (let i = 0; i < coffees.length; i++) {
         if (selectedRoast === 'all') {
@@ -34,7 +34,7 @@ function updateCoffees(e) {
 }
 
 function filterCoffees(filter, bucket) { // refactored to allow more refined search\
-    var inputName = roastName.value.toLowerCase();
+    var inputName = searchName.value.toLowerCase();
     if (filter.name.toLowerCase().includes(inputName) || '' === inputName) {
         bucket.push(filter);
     }
@@ -43,9 +43,11 @@ function filterCoffees(filter, bucket) { // refactored to allow more refined sea
 
 function createCoffee() {          //creates object from user input
     let idValue = coffees.length + 1
-    let nameValue = roastName2.value;
-    let typeValue = roastType.value;
+    let nameValue = enterName.value;
+    let typeValue = enterType.value;
+
     nameValue = createCoffeeNames(nameValue)
+
     let newCoffee = {
         id: idValue,
         name: nameValue,
@@ -83,20 +85,20 @@ var coffees = [
 
 //selector list
 var tbody = document.querySelector('#coffees');
-var submitButton = document.querySelector('#submit');
-var submitButton2 = document.querySelector('#submit2');
-var roastSelection = document.querySelector('#roast-selection');
-var roastType = document.querySelector('#roast-type');
-var roastName = document.querySelector('#input');
-var roastName2 = document.querySelector('#input2');
+var submitSearch = document.querySelector('#submitSearch');
+var submitEnter = document.querySelector('#submitEnter');
+var searchSelection = document.querySelector('#roast-selection');
+var searchName = document.querySelector('#input');
+var enterType = document.querySelector('#roast-type');
+var enterName = document.querySelector('#enterName');
 
 tbody.innerHTML = renderCoffees(coffees);
 
 //event list
-submitButton.addEventListener('click', updateCoffees);
-submitButton2.addEventListener('click', createCoffee);
-submitButton2.addEventListener('click', updateCoffees);
-roastSelection.addEventListener(`change`, updateCoffees)
-roastName.addEventListener(`input`, updateCoffees);
+submitSearch.addEventListener('click', updateCoffees);
+submitEnter.addEventListener('click', createCoffee);
+submitEnter.addEventListener('click', updateCoffees);
+searchSelection.addEventListener(`change`, updateCoffees)
+searchName.addEventListener(`input`, updateCoffees);
 
 })();
